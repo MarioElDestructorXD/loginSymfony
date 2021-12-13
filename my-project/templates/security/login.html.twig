@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Iniciar Sesion
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<section id="content">
+			<form method="post">
+				{% if error %}
+					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
+
+				{% if app.user %}
+					<div class="mb-3">
+						You are logged in as {{ app.user.username }},
+						<a href="{{ path('app_logout') }}">Logout</a>
+					</div>
+				{% endif %}
+
+				<div>
+					<h1>Iniciar Sesión</h1>
+
+					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" placeholder="Correo" class="form-control" autocomplete="email" required autofocus>
+
+					<input type="password" name="password" id="inputPassword" placeholder="Contraseña" class="form-control" autocomplete="current-password" required>
+
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+					<button class="btn btn-lg btn-primary " type="submit">Entrar</button>
+				</div>
+
+			</form>
+		</section>
+	</div>
+{% endblock %}
